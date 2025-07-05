@@ -17,6 +17,7 @@ The goal of this project is to build and deploy a machine learning model that pr
 - 🔧 **CI/CD Integration**: Automating the build and deployment pipeline using **Jenkins**.
 - 🌐 **API Service**: Exposing the model as a REST API using **Flask**.
 - 📦 **Version Control & Pipeline Automation**: Managing code with **Git**, and automating steps from model training to deployment.
+- ⚙️ **Configuration Management**: Storing AWS credentials and data ingestion settings (e.g., S3 bucket name, file name) in a `config.yaml` file, loaded using `pyyaml`. The `config.yaml` file is excluded from version control using `.gitignore` to prevent exposing sensitive information like AWS access keys.
 
 ## 🎯 Objectives
 
@@ -26,12 +27,49 @@ The goal of this project is to build and deploy a machine learning model that pr
 
 ## 🚀 Technologies Used
 
-- Python (scikit-learn, pandas, Flask)
+- Python (scikit-learn, pandas, Flask, pyyaml)
 - Docker
 - Kubernetes (AWS EKS)
 - Jenkins
 - Git & GitHub
-- AWS (EC2, EKS, IAM, etc.)
+- AWS (IAM, S3)
+
+## 🛠️ Setup Instructions
+
+**1. Clone the Repository**
+
+
+**2. Install Dependencies:**
+```pip install -e .```
+
+**3. Configure AWS Credentials:**
+
+Create a config.yaml file in the project root based on the example below.
+Ensure the file is added to `.gitignore` to prevent committing sensitive data.
+
+Example config.yaml:
+```
+aws:
+  access_key_id: YOUR_AWS_ACCESS_KEY_ID
+  secret_access_key: YOUR_AWS_SECRET_ACCESS_KEY
+  default_region: us-east-2
+
+data_ingestion:
+  bucket_name: your-s3-bucket
+  bucket_file_name: data.csv
+  train_ratio: 0.8
+```
+
+**4. Run the Data Ingestion Script:**
+`python data_ingestion.py`
+
+This downloads the dataset from S3 and splits it into training and test sets.
+
+**5. Deploy the Application:**
+
+Build the Docker image and deploy to AWS EKS using Jenkins as described in the pipeline configuration.
+
+
 
 ## 📚 Reference
 
