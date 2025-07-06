@@ -3,3 +3,5 @@ numpy
 scikit-learn
 boto3
 pyyaml
+matplotlib
+seaborn
