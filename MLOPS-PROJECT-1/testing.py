@@ -1,5 +1,5 @@
 from src.logger import get_logger
-from src.custom_execution import CustomException
+from src.custom_exception import CustomException
 import sys
 
 logger = get_logger(__name__)
