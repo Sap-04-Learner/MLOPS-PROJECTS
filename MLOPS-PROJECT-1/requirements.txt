@@ -5,3 +5,7 @@ boto3
 pyyaml
 matplotlib
 seaborn
+imbalanced-learn
+scipy
+xgboost
+lightgbm
