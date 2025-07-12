@@ -3,3 +3,4 @@ logs/
 MLOPS_PROJECT_1.egg-info/
 config/config.yaml
 artifacts/
+mlruns/

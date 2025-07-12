@@ -11,6 +11,9 @@ from config.model_params import *
 from utils.common_functions import read_yaml, load_data
 from scipy.stats import randint
 
+import mlflow
+import mlflow.sklearn
+
 logger = get_logger(__name__)
 
 
@@ -128,14 +131,27 @@ class ModelTraining:
     
     def run(self):
         try:
-            logger.info('Starting our Model Training Pipeline')
-            
-            X_train, y_train, X_test, y_test = self.load_and_split_data()
-            best_lgbm_model = self.train_lgbm(X_train, y_train)
-            metrics = self.evaluate_model(best_lgbm_model, X_test, y_test)
-            self.save_model(best_lgbm_model)
+            with mlflow.start_run():
+                logger.info('Starting our Model Training Pipeline')
+                logger.info('Starting our MLFlow Experimentation')
 
-            logger.info('Model training Successfully Completed')
+                logger.info('Logging the training and testing dataset to MLFlow')
+                mlflow.log_artifact(self.train_path, artifact_path='datasets')
+                mlflow.log_artifact(self.test_path, artifact_path='datasets')
+                
+                X_train, y_train, X_test, y_test = self.load_and_split_data()
+                best_lgbm_model = self.train_lgbm(X_train, y_train)
+                metrics = self.evaluate_model(best_lgbm_model, X_test, y_test)
+                self.save_model(best_lgbm_model)
+
+                logger.info('Logging the model into MLFlow')
+                mlflow.log_artifact(self.model_output_path)
+
+                logger.info('Logging params and metrics to MLFlow')
+                mlflow.log_params(best_lgbm_model.get_params())
+                mlflow.log_metrics(metrics)
+
+                logger.info('Model training Successfully Completed')
 
         except Exception as e:
             logger.error(f'Error in model training pipeline: {e}')
