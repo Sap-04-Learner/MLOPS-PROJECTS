@@ -8,9 +8,9 @@ This repository contains my hands-on lab work inspired by the Udemy course
 ## 🚀 What This Repo Covers
 
 - ✅ CI/CD pipeline setup for machine learning workflows  
-- 🐳 Containerization of ML models using **Docker**  
-- ☸️ Deployment on **Kubernetes** clusters  
-- 🔧 Integration of **Jenkins** for automated workflows  
+- 🐳 Containerization of ML models using **Docker**     (not done as of now)
+- ☸️ Deployment on **Kubernetes** clusters              (not done as of now)
+- 🔧 Integration of **Jenkins** for automated workflows (not done as of now) 
 - ☁️ Cloud-based infrastructure using **AWS** (EC2)
 
 ## 🎯 Purpose
